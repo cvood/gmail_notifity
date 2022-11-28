@@ -6,7 +6,7 @@ export const oauth2_client = new OAuth2Client({
     clientSecret: "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",
     authorizationEndpointUri: "https://accounts.google.com/o/oauth2/auth",
     tokenUri: "https://oauth2.googleapis.com/token",
-    redirectUri: "https://flat-toad-34.deno.dev/callback",
+    redirectUri: "https://cvood-gmail-notifity.deno.dev/api/callback",
     defaults: {
       scope: "http://mail.google.com",
     },
