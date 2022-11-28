@@ -10,7 +10,6 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
     client_id:"942326127555-op7digt9fohohs8nd2j42a6gem1b9gah.apps.googleusercontent.com",
     redirect_uri:"https://cvood-gmail-notifity.deno.dev/api/callback",
     scope:"https://mail.google.com/",
-    state:"CWJBjJIJajgVB4C41iGuOWIPvqOrx0",
     include_granted_scopes:"true",
   };
   
