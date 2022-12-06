@@ -8,9 +8,10 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
   const data = await req.json().then((json) => json.message.data);
   const decode_data = new TextDecoder().decode(decode(data));
   const historyId: string = JSON.parse(decode_data).historyId;
-  const pre_historyId: string = await advance_history(historyId);
+  const pre_historyId: string = "410297"
+  console.log(decode_data);
 
-  let token: Tokens = {};
+  let token: Tokens;
   try {
     token = await get_token();
   } catch (error) {
@@ -35,17 +36,22 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
 
   const histories = await resp.json().then((json) => json.history);
   if (histories){
+
     for (const history of histories) {
-      if(history['messageAdded']) {
-        for (const message of history['messageAddeh']){
-          await fetch('api/dealmessage', {
+      if(history['messagesAdded']) {
+        
+        for (const message of history['messagesAdded']){
+          const resp = await fetch('http://localhost:8000/api/dealmessage', {
             method: "POST",
-            headers: {Accept: 'application/json'},
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(message)
-          })
+          });
+          console.log(await resp.text());
         }
+
       }
     }
+
   }
   
   return new Response('', {status: 200});
