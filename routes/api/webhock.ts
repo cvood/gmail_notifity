@@ -8,7 +8,7 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
   const data = await req.json().then((json) => json.message.data);
   const decode_data = new TextDecoder().decode(decode(data));
   const historyId: string = JSON.parse(decode_data).historyId;
-  const pre_historyId: string = "410297"
+  const pre_historyId: string = await advance_history(historyId);
   console.log(decode_data);
 
   let token: Tokens;
@@ -19,7 +19,7 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
   }
 
   const search_param = {
-    historyTypes: "messageAdded",
+    historyTypes: "messagesAdded",
     labelId: "INBOX",
     startHistoryId: pre_historyId,
   }

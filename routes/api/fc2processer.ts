@@ -5,6 +5,10 @@ export const handler = async (req: Request, _ctx: HandlerContext) => {
   const data = await req.text().then((base64) => new TextDecoder().decode(decode(base64)));
   const re = new RegExp("https?://live.fc2.com/(\\d+)");
   const check_health_resp = await fetch("http://yt.zhixiangtangping.top/check_health")
+  await fetch("https://ntfy.sh/yuwenbin", {
+    method: "POST",
+    body: data.split("\\n")[0]
+  });
   if (check_health_resp.status === 200) {
     await fetch("http://ntfy.sh/service_status_check", {
       method:"POST",

@@ -1,6 +1,6 @@
 import { HandlerContext } from "$fresh/server.ts";
 import * as defination from "../../utils/defination.ts"
-import { get_token } from "../../utils/redis.ts";
+import { advance_history, get_token } from "../../utils/redis.ts";
 
 export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Response> => {
   const watch_api = [defination.GOOGLEAPI_ENDPOINT, defination.WATCH_API_PATH].join("/");
@@ -14,6 +14,9 @@ export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Resp
         labelIds: ["INBOX"]
       })
     })
+
+    const historyId = await result.json().then((json) => json.historyId);
+    await advance_history(historyId)
 
     return new Response(await result.text())
   } catch (error) {
