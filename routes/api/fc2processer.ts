@@ -7,9 +7,9 @@ export const handler = async (req: Request, _ctx: HandlerContext) => {
   const check_health_resp = await fetch("http://yt.zhixiangtangping.top/check_health")
   await fetch("https://ntfy.sh/yuwenbin", {
     method: "POST",
-    body: data.split("\\n")[0]
+    body: data.split("\n")[0]
   });
-  if (check_health_resp.status === 200) {
+  if (check_health_resp.status != 200) {
     await fetch("http://ntfy.sh/service_status_check", {
       method:"POST",
       body:"yt-dlp service crashed !"
@@ -20,6 +20,7 @@ export const handler = async (req: Request, _ctx: HandlerContext) => {
     const live_url = re.exec(data)![0];
     const resp = await fetch("http://yt.zhixiangtangping.top:5555/create", {
       method: "POST",
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         url: live_url
       })

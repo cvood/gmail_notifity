@@ -41,7 +41,7 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
       if(history['messagesAdded']) {
         
         for (const message of history['messagesAdded']){
-          const resp = await fetch('https://cvood-gmail-notifity.deno.dev/api/dealmessage', {
+          const resp = await fetch('http://localhost:80/api/dealmessage', {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(message)
