@@ -95,7 +95,7 @@ async function deal_message(message:Record<string, unknown>) {
 
 
   try {
-    const strategies: Strategy[] = await retry(async () => {
+    const strategies: Strategy[] = await retryAsync(async () => {
       const strategies_resp = await fetch("http://postgrest.domcloud.io/strategies", {
         headers: {Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicG9zdGdyZXN0In0.6iN8feEXAPqIV_MnJDeJi-X0begyR_PtgXkB8Ddk-Z0"}
       });
