@@ -33,7 +33,7 @@ function get_header(payload: MessagePart, headername:string) {
       return header.value
     }
   }
-  return ""
+  throw new Error("HeaderNotExist");
 }
 
 export const handler = async (req: Request, _ctx: HandlerContext): Promise<Response> => {
