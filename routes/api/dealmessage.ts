@@ -49,8 +49,9 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
         if (!re.test(get_header(payload, "From"))) {
           return new Response('don\'t found header "From"', {status: 500})
         }
-        const resp = await fetch("https://cvood-gmail-notifity.deno.dev" + st.url, {
+        const resp = await fetch("http://localhost:80" + st.url, {
           method: "POST",
+          headers: {"Content-Type": "application/json"},
           body: payload.body.data,
         })
         return resp
@@ -60,8 +61,9 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
         if (!re.test(get_header(payload, "Subject"))) {
           return new Response('don\'t found header "Subject"', {status: 500})
         }
-        const resp = await fetch("https://cvood-gmail-notifity.deno.dev" + st.url, {
+        const resp = await fetch("http://localhost:80" + st.url, {
           method: "POST",
+          headers: {"Content-Type": "application/json"},
           body: payload.body.data,
         })
         return resp

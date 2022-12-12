@@ -54,7 +54,7 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
   const url = new URL(defination.GOOGLEAPI_ENDPOINT);
   url.pathname = defination.LIST_HISTORIES_API;
   for (const key in search_param) {
-    url.searchParams.set(key, search_param[key]);
+    url.searchParams.set(key, search_param[key as keyof typeof search_param]);
   }
 
   const resp = await fetch(url, {
@@ -72,8 +72,14 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
 
         console.log("has new message");
         
-        for (const message of history['messagesAdded']){
-          await deal_message(message);
+        try {
+
+          for (const message of history['messagesAdded']){
+            await deal_message(message);
+          }
+
+        } catch (error) {
+          console.log(error)
         }
 
       }

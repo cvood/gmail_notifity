@@ -22,6 +22,7 @@ export async function fc2processer(data: string) {
     const live_url = re.exec(decode_res)![0];
     await fetch("http://yt.zhixiangtangping.top:5555/create", {
       method: "POST",
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         url: live_url
       })
@@ -29,5 +30,6 @@ export async function fc2processer(data: string) {
 
     return
   }
+
   throw new Error("this is not an live starting notifitation")
 }
