@@ -3,7 +3,7 @@ import { decode } from "https://deno.land/std@0.150.0/encoding/base64.ts";
 import { advance_history, get_token } from "../../utils/redis.ts";
 import * as defination  from "../../utils/defination.ts";
 import { Tokens } from "https://deno.land/x/oauth2_client@v0.2.1/mod.ts";
-import { retry } from "https://deno.land/x/retry@v2.0.0/mod.ts";
+import { retryAsync } from "https://deno.land/x/retry@v2.0.0/mod.ts";
 import { processers } from "../../processer/mod.ts";
 
 interface MessagePart  {
@@ -75,7 +75,7 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
         try {
 
           for (const message of history['messagesAdded']){
-            await deal_message(message);
+            await deal_message(message.message.id);
           }
 
         } catch (error) {
@@ -87,12 +87,30 @@ export const handler = async (req: Request, _ctx: HandlerContext): Promise<Respo
 
   }
   
-  return new Response('', {status: 200});
+  return new Response('ok', {status: 200});
 }
 
-async function deal_message(message:Record<string, unknown>) {
-  const payload: MessagePart = message.payload as MessagePart;
+async function get_messge(id:string): Promise<MessagePart> {
+  const url = new URL(defination.GOOGLEAPI_ENDPOINT);
+  url.pathname = defination.GMAIL_GET_MESSAGE_PATH + id;
 
+  let token: Tokens;
+  try {
+    token = await get_token();
+  } catch (error) {
+    throw error;
+  }
+
+  const resp = await fetch(url, {
+    headers: {Authorization: `${token.tokenType} ${token.accessToken}`}
+  });
+
+  const payload = await resp.json()
+  return payload.payload
+}
+
+async function deal_message(id: string) {
+  const payload: MessagePart = await get_messge(id);
 
   try {
     const strategies: Strategy[] = await retryAsync(async () => {
