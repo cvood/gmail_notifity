@@ -18,7 +18,7 @@ export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Resp
     const historyId = await result.json().then((json) => json.historyId);
     await advance_history(historyId)
 
-    return new Response(await result.text())
+    return new Response(historyId)
   } catch (error) {
     await fetch("https://ntfy.sh/yuwenbin", {
       method: "POST",
