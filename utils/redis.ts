@@ -3,10 +3,10 @@ import { Tokens } from "https://deno.land/x/oauth2_client@v0.2.1/mod.ts";
 import { refresh_AccessToken } from "./oauth2.ts";
 
 const redis: Redis = await connect({
-  hostname: "apn1-picked-poodle-33669.upstash.io",
+  hostname: "usw1-helpful-oriole-33222.upstash.io",
   port: 33669,
   username: "default",
-  password: "94823fab1b964cdb941c551950208dc9"
+  password: "13fa3ecc250d4d7b8dda1fcd0e5f6cbb"
 })
 
 export async function save_token(token: Tokens) {
