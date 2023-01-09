@@ -5,6 +5,7 @@ import { refresh_AccessToken } from "./oauth2.ts";
 const redis: Redis = await connect({
   hostname: "redis-14181.c251.east-us-mz.azure.cloud.redislabs.com",
   port: 14181,
+  db: 1,
   username: "default",
   password: "92iAjC3IdFrTq0m015Hs7VqaehrQlOpm"
 })
