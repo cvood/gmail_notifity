@@ -4,7 +4,7 @@ import { refresh_AccessToken } from "./oauth2.ts";
 
 const redis: Redis = await connect({
   hostname: "usw1-helpful-oriole-33222.upstash.io",
-  port: 33669,
+  port: 33222,
   username: "default",
   password: "13fa3ecc250d4d7b8dda1fcd0e5f6cbb"
 })
