@@ -5,14 +5,14 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
   url.pathname = 'o/oauth2/auth'
   const searchParams = {
     client_id: "942326127555-op7digt9fohohs8nd2j42a6gem1b9gah.apps.googleusercontent.com",
-    redirect_uri: "http://localhost:80/api/callback",
+    redirect_uri: "https://cvood-gmail-notifity.deno.dev/",
     response_type: "code",
     scope: "https://mail.google.com",
     access_type: "offline",
   };
   
   for (const k in searchParams) {
-    url.searchParams.set(k, searchParams[k])
+    url.searchParams.set(k, searchParams[k as (keyof (typeof searchParams))])
   }
 
   return new Response("redict", {
